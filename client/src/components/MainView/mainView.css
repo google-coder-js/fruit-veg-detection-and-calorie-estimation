@@ -1,0 +1,11 @@
+.image-preview{
+    width: 30vw;
+    border: solid black 1px ;
+}
+*{
+    background: #333;
+}
+canvas{
+    width: 800px;
+    height: 533px;
+}
