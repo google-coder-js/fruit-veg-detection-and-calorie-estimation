@@ -7,21 +7,20 @@ const Upload = () => {
   const CUSTOM_VISION_API = process.env.REACT_APP_CUSTOM_VISION_API
   const CUSTOM_VISION_PREDICTION_KEY = process.env.REACT_APP_CUSTOM_VISION_PREDICTION_KEY 
   const [image, setImage] = useState("");
-  const [predictionData, setPredictionData] = useState("");
+  const [predictionData, setPredictionData] = useState([]);
   const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const canvasRef = useRef(null);
   const imgRef = useRef(null);
 
-  // draw image in canvas, image section
+  // update image section
   useEffect(() => {
     async function drawImage() {
     if (image) {
         const url = await URL.createObjectURL(image);
         console.log("url", url);
         setImageUrl(url);
-        DrawBoundingBox(predictionData, imageUrl, canvasRef)
-        console.log("draw");
       }
     }
     drawImage();
@@ -29,14 +28,21 @@ const Upload = () => {
       // URL.revokeObjectURL(image);
     };
   }, [image]);
+  
+  // draw image in canvas
+  useEffect(() => {
+    DrawBoundingBox(predictionData, imageUrl, canvasRef);
+    console.log("draw");
+  }, [predictionData]);
 
 // Image File uploading for prediction
   const uploadFile = async (e) => {
     e.preventDefault();
+    setLoading(true);
     console.log("image", image);
-    const url = await URL.createObjectURL(image);
-    console.log("url", url);
-    setImageUrl(url);
+    // const url = await URL.createObjectURL(image);
+    // console.log("url", url);
+    // setImageUrl(url);
     try {
       console.log("i", image);
       const res = await axios.post(
@@ -56,6 +62,7 @@ const Upload = () => {
       })
       console.log('req prddata',predcdata);
       setPredictionData(predcdata);
+      setLoading(false);
 
     } catch (err) {
       console.log(err);
@@ -83,23 +90,26 @@ const Upload = () => {
         alt=""
         srcset=""
       />
+      {loading && <h1>Loading...</h1>}
       <br />
-      <canvas
-        ref={canvasRef}
-        width={1024}
-        height={768}
-        style={{
-          // position: "absolute",
-          // marginLeft: "auto",
-          // marginRight: "auto",
-          left: 10,
-          right: 0,
-          textAlign: "center",
-          zindex: 8,
-          // width: 800,
-          // height: 533,
-        }}
-      />
+      { 
+        <canvas
+          ref={canvasRef}
+          width={1024}
+          height={768}
+          style={{
+            // position: "absolute",
+            // marginLeft: "auto",
+            // marginRight: "auto",
+            left: 10,
+            right: 0,
+            textAlign: "center",
+            zindex: 8,
+            // width: 800,
+            // height: 533,
+          }}
+        />
+      }
     </div>
   );
 };
