@@ -4,8 +4,8 @@ import "./mainView.css";
 import DrawBoundingBox from "../../utils/DrawBoundingBox";
 
 const Upload = () => {
-  const CUSTOM_VISION_API = process.env.REACT_APP_CUSTOM_VISION_API
-  const CUSTOM_VISION_PREDICTION_KEY = process.env.REACT_APP_CUSTOM_VISION_PREDICTION_KEY 
+  const CUSTOM_VISION_API = "recprocess.env.REACT_APP_CUSTOM_VISION_API"
+  const CUSTOM_VISION_PREDICTION_KEY = "recprocess.env.REACT_APP_CUSTOM_VISION_PREDICTION_KEY"
   const [image, setImage] = useState("");
   const [predictionData, setPredictionData] = useState([]);
   const [imageUrl, setImageUrl] = useState("");
