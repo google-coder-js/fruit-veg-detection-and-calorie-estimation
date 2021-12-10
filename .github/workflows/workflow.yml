@@ -22,5 +22,4 @@ jobs:
           node-version: 12.x
       - name: Install NPM packages
         run: npm ci
-      - name: Build project
-        run: npm run build
+      
