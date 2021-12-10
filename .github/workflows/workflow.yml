@@ -25,7 +25,6 @@ jobs:
       - name: build
         run: npm run test --if-present
         env:
-          CI: false
-     CI: false
+          CI: false 
       - name: Build project
         run: npm run build
