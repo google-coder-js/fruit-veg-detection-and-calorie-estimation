@@ -22,5 +22,10 @@ jobs:
           node-version: 12.x
       - name: Install NPM packages
         run: npm ci
+      - name: build
+        run: npm run test --if-present
+        env:
+          CI: false
+     CI: false
       - name: Build project
         run: npm run build
